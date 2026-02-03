@@ -44,7 +44,9 @@
   };
 
   // register
-  Entry.extensions.ph_sensor = ext;
-  Entry.staticBlocks['ph_sensor'] = descriptor.blocks;
-  Entry.blockMenuBlocks.push('readPH', 'readPHVoltage', 'setPHOffset');
-})(typeof Entry !== 'undefined' ? Entry : (window.Entry || {}));
+  if (Entry && Entry.extensions) {
+    Entry.extensions.ph_sensor = ext;
+    Entry.staticBlocks['ph_sensor'] = descriptor.blocks;
+    Entry.blockMenuBlocks.push('readPH', 'readPHVoltage', 'setPHOffset');
+  }
+})(typeof Entry !== 'undefined' ? Entry : {});
