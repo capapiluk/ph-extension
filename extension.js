@@ -1,58 +1,48 @@
-(function () {
-
-  /* ===== ตัวแปร ===== */
-  var phOffset = 0;
-  var vRef = 3.3;
-  var resolution = 4095;
-
-  /* ===== Extension Object ===== */
-  var ext = {};
-
-  ext._shutdown = function () {};
-
-  ext._getStatus = function () {
-    return { status: 2, msg: 'Ready' };
-  };
-
-  /* ===== ตั้งค่า Offset ===== */
-  ext.setPHOffset = function (value) {
-    phOffset = parseFloat(value);
-  };
-
-  /* ===== อ่านแรงดัน pH ===== */
-  ext.readPHVoltage = function (pin) {
-    if (typeof Scratch === 'undefined') return 0;
-    var adc = Scratch.sensorValue("A" + pin) || 0;
-    var voltage = (adc * vRef) / resolution;
-    return Math.round(voltage * 1000) / 1000;
-  };
-
-  /* ===== อ่านค่า pH ===== */
-  ext.readPH = function (pin) {
-    if (typeof Scratch === 'undefined') return 7;
-    var adc = Scratch.sensorValue("A" + pin) || 0;
-    var voltage = (adc * vRef) / resolution;
-    var phValue = 7 + (2.5 - voltage) / 0.18 + phOffset;
-    return Math.round(phValue * 100) / 100;
-  };
-
-  /* ===== Block Descriptor ===== */
-  var descriptor = {
+({
+    name: "pH Sensor",
+    description: "อ่านค่า pH จาก Analog pH Sensor พร้อมคาลิเบรท",
+    author: "YourName",
+    category: "Sensors",
+    version: "1.0.0",
+    icon: "/static/icon.png",
+    color: "#3498db",
     blocks: [
-      ['r', 'อ่านค่า pH (A %0)', 'readPH', '34'],
-      ['r', 'อ่านแรงดัน pH (A %0)', 'readPHVoltage', '34'],
-      [' ', 'ตั้งค่า pH Offset %0', 'setPHOffset', '0']
+        {
+            xml: `
+                <block type="ph_read_value">
+                    <value name="pin">
+                        <shadow type="math_number">
+                            <field name="NUM">34</field>
+                        </shadow>
+                    </value>
+                </block>
+            `
+        },
+        {
+            xml: `
+                <block type="ph_read_voltage">
+                    <value name="pin">
+                        <shadow type="math_number">
+                            <field name="NUM">34</field>
+                        </shadow>
+                    </value>
+                </block>
+            `
+        },
+        {
+            xml: `
+                <block type="ph_set_offset">
+                    <value name="offset">
+                        <shadow type="math_number">
+                            <field name="NUM">0</field>
+                        </shadow>
+                    </value>
+                </block>
+            `
+        }
     ],
-    menus: {}
-  };
-
-  /* ===== Register ===== */
-  if (typeof ScratchExtensions !== 'undefined') {
-    ScratchExtensions.register(
-      'PH Sensor',
-      descriptor,
-      ext
-    );
-  }
-
-})();
+    chip: [
+        "ESP32",
+        "Arduino"
+    ]
+});
