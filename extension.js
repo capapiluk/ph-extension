@@ -1,7 +1,7 @@
 ({
     name: "pH Sensor",
     description: "อ่านค่า pH จาก Analog pH Sensor พร้อมคาลิเบรท",
-    author: "YourName",
+    author: "cap_apiluk",
     category: "Sensors",
     version: "1.0.0",
     icon: "/static/icon.png",
