@@ -1,4 +1,6 @@
-(function (ext) {
+(function (Entry) {
+  var ext = {};
+  
   // ตัวแปรเก็บ Offset
   let phOffset = 0;
   let vRef = 3.3;
@@ -45,4 +47,4 @@
   Entry.extensions.ph_sensor = ext;
   Entry.staticBlocks['ph_sensor'] = descriptor.blocks;
   Entry.blockMenuBlocks.push('readPH', 'readPHVoltage', 'setPHOffset');
-})({});
+})(typeof Entry !== 'undefined' ? Entry : (window.Entry || {}));
