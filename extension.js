@@ -21,6 +21,7 @@
 
   /* ===== อ่านแรงดัน pH ===== */
   ext.readPHVoltage = function (pin) {
+    if (typeof Scratch === 'undefined') return 0;
     var adc = Scratch.sensorValue("A" + pin) || 0;
     var voltage = (adc * vRef) / resolution;
     return Math.round(voltage * 1000) / 1000;
@@ -28,6 +29,7 @@
 
   /* ===== อ่านค่า pH ===== */
   ext.readPH = function (pin) {
+    if (typeof Scratch === 'undefined') return 7;
     var adc = Scratch.sensorValue("A" + pin) || 0;
     var voltage = (adc * vRef) / resolution;
     var phValue = 7 + (2.5 - voltage) / 0.18 + phOffset;
@@ -44,10 +46,12 @@
   };
 
   /* ===== Register ===== */
-  ScratchExtensions.register(
-    'PH Sensor',
-    descriptor,
-    ext
-  );
+  if (typeof ScratchExtensions !== 'undefined') {
+    ScratchExtensions.register(
+      'PH Sensor',
+      descriptor,
+      ext
+    );
+  }
 
 })();
