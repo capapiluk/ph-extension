@@ -42,7 +42,8 @@
       ['r', 'อ่านค่า pH (A %0)', 'readPH', '34'],
       ['r', 'อ่านแรงดัน pH (A %0)', 'readPHVoltage', '34'],
       [' ', 'ตั้งค่า pH Offset %0', 'setPHOffset', '0']
-    ]
+    ],
+    menus: {}
   };
 
   /* ===== Register ===== */
