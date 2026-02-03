@@ -1,0 +1,9 @@
+{
+  "name": "ph-sensor-extension",
+  "version": "1.0.0",
+  "description": "Extension สำหรับอ่านค่า pH Sensor",
+  "main": "blocks.js",
+  "keywords": ["ph", "sensor", "microblock"],
+  "author": "YourName",
+  "license": "MIT"
+}
